@@ -1,0 +1,87 @@
+﻿<Window x:Class="PhanMemQuanLySTK.GiaoDienNapTien"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   xmlns:local="clr-namespace:PhanMemQuanLySTK"
+   xmlns:gd_chinh="clr-namespace:PhanMemQuanLySTK.ViewModels"
+   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize"
+   FontSize="20"
+Background="Transparent"
+        AllowsTransparency="True"
+FontFamily="{DynamicResource MaterialDesignFont}"
+   mc:Ignorable="d"
+        WindowStyle="None"
+Height="510" Width="820">
+
+    <Window.DataContext>
+        <gd_chinh:GiaoDienChinhViewModel />
+    </Window.DataContext>
+
+    <Border Background="#70C2B4" CornerRadius="10" Height="410" Width="720">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="2" Color="Black" BlurRadius="30" Opacity="0.5" Direction="315" />
+        </Border.Effect>
+
+        <StackPanel>
+            <Border Background="White" Width="680" Height="330" Margin="0,20,0,15" CornerRadius="10">
+                <StackPanel Margin="20">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Margin" Value="0,10,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Label FontSize="40" FontWeight="Bold" HorizontalAlignment="Center">NẠP TIỀN</Label>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontSize="20" Width="200" FontWeight="Bold">Tên sổ tiết kiệm</Label>
+                        <TextBlock FontSize="20" Width="440" x:Name="txb_tenSTK"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontSize="20" Width="200" FontWeight="Bold">Số dư của bạn</Label>
+                        <TextBlock FontSize="20" Width="440" x:Name="txb_soDu"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontSize="20" Width="200" materialDesign:TextFieldAssist.SuffixText="VNĐ"  FontWeight="Bold">Số tiền muốn nạp</Label>
+                        <TextBox PreviewTextInput="tb_Sotien_PreviewTextInput_1" x:Name="tb_soTienNap" materialDesign:TextFieldAssist.SuffixText="VNĐ" FontSize="20" Width="440"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontSize="20" Width="200"  FontWeight="Bold">Nội dung (nếu có)</Label>
+                        <TextBox x:Name="noidung" Width="440" FontSize="20" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MaxHeight="90"></TextBox>
+                    </StackPanel>
+
+                    <Label x:Name="thongbao" Visibility="Collapsed" Content ="Vui lòng nhập số tiền muốn nạp." Foreground="Red" HorizontalAlignment="Center" FontSize="18" Margin="15" />
+                </StackPanel>
+            </Border>
+            <DockPanel Width="600" HorizontalAlignment="Center" >
+                <Button Background="White"   DockPanel.Dock="Left"
+                        FontSize="20"
+                        BorderBrush="Black"
+Width="120"
+Content="HỦY BỎ"
+                      Click="btn_HuyBo_Click"
+                               Foreground="Black"
+IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+Style="{StaticResource MaterialDesignFlatMidBgButton}"
+/>
+                <Button Background="White" HorizontalAlignment="Right" DockPanel.Dock="Right"
+                        FontSize="20"
+                        BorderBrush="Black"
+                        Click="btn_Nap_Click"
+Width="120"
+Content="NẠP"
+                               Foreground="Black"
+IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+Style="{StaticResource MaterialDesignFlatMidBgButton}"
+/>
+            </DockPanel>
+        </StackPanel>
+
+    </Border>
+
+</Window>

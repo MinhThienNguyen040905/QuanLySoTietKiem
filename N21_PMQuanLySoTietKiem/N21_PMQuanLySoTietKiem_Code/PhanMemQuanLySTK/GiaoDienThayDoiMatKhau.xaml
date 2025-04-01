@@ -1,0 +1,105 @@
+﻿<Window x:Class="PhanMemQuanLySTK.GiaoDienThayDoiMatKhau"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhanMemQuanLySTK"
+        xmlns:gd_mk="clr-namespace:PhanMemQuanLySTK.ViewModels"
+        mc:Ignorable="d"
+                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+TextElement.FontWeight="Regular"
+TextElement.FontSize="16"
+TextOptions.TextFormattingMode="Ideal"
+TextOptions.TextRenderingMode="Auto"
+    ResizeMode="NoResize"
+FontFamily="{DynamicResource MaterialDesignFont}"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Title="GiaoDienThayDoiMatKhau" Height="595" Width="850">
+
+    <Window.DataContext>
+        <gd_mk:GiaoDienChinhViewModel />
+    </Window.DataContext>
+
+    <Border Background="#70C2B4" CornerRadius="10" Height="495" Width="750">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="2" Color="Black" BlurRadius="30" Opacity="0.5" Direction="315" />
+        </Border.Effect>
+        <StackPanel>
+            <Border Height="410" Width="706" Background="White" Margin="20" CornerRadius="10">
+                <StackPanel Margin="20">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Margin" Value="0,10,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Label FontSize="50" FontWeight="Bold" HorizontalAlignment="Center">THAY ĐỔI MẬT KHẨU</Label>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Margin="0,0,0,5" Width="250" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left">Mật khẩu hiện tại</Label>
+                        <PasswordBox
+                            x:Name="pw_mkHienTai"
+    VerticalContentAlignment="Bottom"
+                          FontSize="18"
+    materialDesign:TextFieldAssist.HasClearButton="True"
+    IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
+    Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
+    />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Margin="0,0,0,5" Width="250" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left">Mật khẩu mới</Label>
+                        <PasswordBox
+VerticalContentAlignment="Bottom"
+                      FontSize="18"
+  x:Name="pw_mkMoi"
+materialDesign:TextFieldAssist.HasClearButton="True"
+IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
+Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
+/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Margin="0,0,0,5" Width="250" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left">Nhập lại mật khẩu mới</Label>
+                        <PasswordBox
+VerticalContentAlignment="Bottom"
+                      FontSize="18"
+    x:Name="pw_NhapLaiMK"
+materialDesign:TextFieldAssist.HasClearButton="True"
+IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
+Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
+/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <DockPanel Width="600" HorizontalAlignment="Center" >
+                <Button Background="White" HorizontalAlignment="Left"   DockPanel.Dock="Left"
+Width="100"
+Content="HỦY BỎ"
+                        x:Name="btn_HuyBo"
+                        Click="btn_HuyBo_Click"
+                               Foreground="Black"
+IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+Style="{StaticResource MaterialDesignFlatMidBgButton}"
+ToolTip="MaterialDesignFlatMidButton"
+/>
+                <Button Background="White" HorizontalAlignment="Right" DockPanel.Dock="Right"
+Width="110"
+Content="XÁC NHẬN"
+                        x:Name="btn_XacNhan"
+                        Click="btn_XacNhan_Click"
+                               Foreground="Black"
+IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+Style="{StaticResource MaterialDesignFlatMidBgButton}"
+ToolTip="MaterialDesignFlatMidButton"
+/>
+            </DockPanel>
+        </StackPanel>
+    </Border>
+
+
+</Window>

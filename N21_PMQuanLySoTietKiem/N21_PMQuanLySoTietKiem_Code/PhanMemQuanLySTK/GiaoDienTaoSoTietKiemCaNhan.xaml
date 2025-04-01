@@ -1,0 +1,90 @@
+﻿<Window x:Class="PhanMemQuanLySTK.GiaoDienTaoSoTietKiemCaNhan"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhanMemQuanLySTK"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        mc:Ignorable="d"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Title="Tạo số tiết kiệm cá nhân" Height="560" Width="820"
+        WindowStyle="None">
+
+    <Border Background="#70C2B4" CornerRadius="10" Height="450" Width="720">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="2" Color="Black" BlurRadius="30" Opacity="0.5" Direction="315" />
+        </Border.Effect>
+        <StackPanel Loaded="Window_Loaded">
+            <Border Background="White" CornerRadius="10" Margin="0 20 0 15" Width="680" Height="370">
+                <StackPanel Margin="20">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Margin" Value="0,10,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Label Content="TẠO SỔ TIẾT KIỆM CÁ NHÂN" FontWeight="Bold" FontSize="40" HorizontalAlignment="Center"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Tên sổ tiết kiệm" VerticalAlignment="Bottom" FontWeight="Bold" Width="170" FontSize="20"></Label>
+                        <TextBox x:Name="tb_TenSoTK" Width="460" FontSize="20"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Kỳ hạn/Lãi suất" VerticalAlignment="Bottom"
+                               FontWeight="Bold" Width="170" FontSize="20"></Label>
+
+                        <ComboBox Width="460" x:Name="cb_LaiSuat" SelectedValuePath="Interest_Rate_ID">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="20" Text="{Binding Term}"/>
+                                        <TextBlock FontSize="20" Text=" tháng   -   "/>
+                                        <TextBlock FontSize="20" Text="{Binding Rate}"/>
+                                        <TextBlock FontSize="20" Text="%/năm"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Số tiền gửi" VerticalAlignment="Bottom" FontWeight="Bold" Width="170" FontSize="20"></Label>
+                        <TextBox x:Name="tb_Sotien" Width="460" FontSize="20" materialDesign:TextFieldAssist.SuffixText="VNĐ" materialDesign:TextFieldAssist.SuffixTextVisibility="Always" PreviewTextInput="tb_Sotien_PreviewTextInput_1"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Mục tiêu (nếu có)" VerticalAlignment="Bottom" FontWeight="Bold" Width="170" FontSize="20"></Label>
+                        <TextBox x:Name="tb_Muctieu" Width="460"
+                   FontSize="20" materialDesign:TextFieldAssist.SuffixText="VNĐ"
+                                 
+materialDesign:TextFieldAssist.SuffixTextVisibility="Always" PreviewTextInput="tb_Sotien_PreviewTextInput_1"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Nội dung (nếu có)" VerticalAlignment="Top" FontWeight="Bold" Width="170" FontSize="20"></Label>
+                        <TextBox x:Name="tb_Mota" Width="460" FontSize="20" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MaxHeight="90"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <DockPanel Width="600" HorizontalAlignment="Center" >
+                <Button x:Name="btnHuyBo" Click="btnHuyBo_Click" Background="White" HorizontalAlignment="Left"   DockPanel.Dock="Left"
+  Width="100" BorderBrush="Black"
+  Content="HỦY BỎ"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignFlatMidBgButton}"
+  />
+                <Button Background="White" HorizontalAlignment="Right" DockPanel.Dock="Right"
+  Width="100"
+  Content="TẠO" BorderBrush="Black"
+                        x:Name="btnTao"
+                        Click="btnTao_Click"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignFlatMidBgButton}"
+  />
+            </DockPanel>
+        </StackPanel>
+    </Border>
+</Window>

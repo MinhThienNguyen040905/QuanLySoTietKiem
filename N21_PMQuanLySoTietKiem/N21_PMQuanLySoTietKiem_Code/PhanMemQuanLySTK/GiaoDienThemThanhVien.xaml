@@ -1,0 +1,73 @@
+﻿<Window x:Class="PhanMemQuanLySTK.GiaoDienThemThanhVien"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhanMemQuanLySTK"
+         xmlns:gd_dk="clr-namespace:PhanMemQuanLySTK.ViewModels"
+        mc:Ignorable="d"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+            WindowStartupLocation="CenterScreen"
+         Background="Transparent"
+        AllowsTransparency="True"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStyle="None"
+        Title="Them_thanh_vien" Height="325" Width="660">
+
+    <Window.DataContext>
+        <gd_dk:GiaoDienChinhViewModel />
+    </Window.DataContext>
+
+    <Border Background="White" CornerRadius="10" BorderBrush="#99FFCC" BorderThickness="4" Width="560" Height="225">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="2" Color="Black" BlurRadius="30" Opacity="0.5" Direction="315" />
+        </Border.Effect>
+        <Border Background="White" Width="540" Height="215" CornerRadius="10">
+            <StackPanel Margin="15,15,15,5">
+                <Label FontSize="35" FontWeight="Bold" HorizontalAlignment="Center">THÊM THÀNH VIÊN</Label>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Margin" Value="0,10,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Label VerticalAlignment="Center" Width="150" FontSize="16" FontWeight="Bold">Tên người dùng</Label>
+                    <TextBox x:Name="tb_Username" Width="360" FontSize="16"  KeyDown="tb_Username_KeyDown"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Margin" Value="0,10,0,0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Label VerticalAlignment="Center" Width="150" FontSize="16" FontWeight="Bold">Họ và tên</Label>
+                        <TextBox x:Name="tb_Hoten" Width="360" FontSize="16" IsReadOnly="True"></TextBox>
+
+                    </StackPanel>
+                    <Label x:Name="lb_Thongbao" Content="" HorizontalAlignment="Center"  Visibility="Hidden"></Label>
+                </StackPanel>
+                <DockPanel Margin="0 5 0 0" Width="420" HorizontalAlignment="Center" >
+                    <Button Background="White" HorizontalAlignment="Left" DockPanel.Dock="Left"
+Width="110"
+Content="Hoàn tất"
+IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+Style="{StaticResource MaterialDesignFlatMidBgButton}"
+Click="Button_Click_1"
+/>
+                    <Button Background="White" HorizontalAlignment="Right" DockPanel.Dock="Right"
+Width="100"
+Content="Thêm"
+IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+Style="{StaticResource MaterialDesignFlatMidBgButton}" Click="Button_Click"
+/>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+    </Border>
+</Window>

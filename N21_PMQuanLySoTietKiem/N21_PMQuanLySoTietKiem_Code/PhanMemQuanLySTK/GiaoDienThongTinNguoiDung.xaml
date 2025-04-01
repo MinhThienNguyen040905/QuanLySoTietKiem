@@ -1,0 +1,498 @@
+﻿<UserControl x:Class="PhanMemQuanLySTK.GiaoDienThongTinNguoiDung"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PhanMemQuanLySTK"
+             xmlns:gd_chinh="clr-namespace:PhanMemQuanLySTK.ViewModels"
+               xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+   TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextElement.Foreground="Black"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Language="vi-VN"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"   
+             >
+
+    <UserControl.DataContext>
+        <gd_chinh:GiaoDienChinhViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <local:CurrencyConverter x:Key="CurrencyConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,2" EndPoint="1,1">
+                <GradientStop Offset="0.1" Color="#00796B"/>
+                <GradientStop Offset="6" Color="#48A999"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <!-- Cột trái dành cho ảnh đại diện -->
+            <ColumnDefinition Width="2*" />
+            <!-- Cột phải dành cho thông tin và biểu đồ -->
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Button Width="60" Height="60" 
+        HorizontalAlignment="Left" VerticalAlignment="Top" 
+        Margin="10" Background="Transparent"
+                    BorderBrush="Transparent"
+                    Click="btn_Home_Click"
+        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+        ToolTip="Quay lại trang Home">
+                <materialDesign:PackIcon Kind="Home" 
+                             Width="40" 
+                             Height="40" />
+            </Button>
+
+            <!-- Nội dung chính -->
+            <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                <!-- Toàn bộ phần tử bao quanh bởi nền trắng -->
+                <Border Background="White" CornerRadius="15" Padding="30" Margin="10" Width="450" Grid.Column="1"
+            VerticalAlignment="Top" BorderThickness="0">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!-- Avatar với nền trắng -->
+                        <Border Background="White" Width="390" Height="390" CornerRadius="200" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="3" BlurRadius="10" Opacity="0.5" />
+                            </Border.Effect>
+
+                            <Image Stretch="UniformToFill" Source="{Binding User.Avatar}" Width="370" Height="370">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="185,185" RadiusX="185" RadiusY="185" />
+                                </Image.Clip>
+                            </Image>
+                        </Border>
+
+                        <!-- Nút chỉnh sửa ảnh đại diện -->
+                        <Button Height="30" Width="30" Margin="0,10,0,0"
+                                Click="btn_DoiAnh_Click"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="Chỉnh sửa ảnh đại diện">
+                            <materialDesign:PackIcon Kind="ImageEditOutline" />
+                        </Button>
+
+                        <!-- Tên người dùng -->
+                        <TextBlock Text="{Binding ReadOnlyFullname}" FontSize="25" FontWeight="SemiBold" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+
+                        <!-- Tổng số dư -->
+                        <TextBlock Text="{Binding User.Money, StringFormat=Số dư: {0:N0} VNĐ}" FontWeight="Medium"  FontSize="18" Margin="0,5,0,20" HorizontalAlignment="Center"/>
+
+                        <!-- Nút Đăng xuất -->
+                        <Button Width="180" BorderBrush="DarkGreen" Foreground="Black" Grid.Column="1" BorderThickness="1"
+VerticalAlignment="Bottom" Margin="10 0 0 0" Style="{StaticResource MaterialDesignFlatButton}"
+                                Click="btn_DangXuat_Click">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <!-- Icon -->
+                                    <materialDesign:PackIcon Kind="LogoutVariant" Margin="0,0,10,0" />
+                                    <TextBlock Text="Đăng xuất" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+        </Grid>
+
+        <!-- Cột phải -->
+        <Grid Grid.Column="1" Margin="20">
+            <Grid.RowDefinitions>
+                <!-- Hàng trên: Thông tin cá nhân và các nút -->
+                <RowDefinition Height="3.9*" />
+                <!-- Hàng dưới: Biểu đồ -->
+                <RowDefinition Height="3.6*" />
+            </Grid.RowDefinitions>
+
+            <!-- Phần thông tin cá nhân và các nút -->
+            <Border Background="White" CornerRadius="15" Padding="30" Margin="10" Grid.Column="1" MaxHeight="500"
+        VerticalAlignment="Top" BorderThickness="0">
+                <StackPanel>
+                    <!-- Tiêu đề -->
+                    <TextBlock Text="THÔNG TIN CÁ NHÂN" TextAlignment="Center" FontSize="50" FontWeight="Bold"
+               Margin="0,-15,0,5" Foreground="#333" />
+
+                    <StackPanel Margin="0,0,0,0">
+                        <Grid HorizontalAlignment="Stretch" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Cột 1: Label Họ và tên -->
+                            <Label Content="Họ và tên:" 
+           FontSize="18" 
+           VerticalAlignment="Center" 
+           HorizontalAlignment="Left" 
+           FontWeight="SemiBold" 
+           Margin="0" 
+           Padding="0"
+           Grid.Column="0" />
+
+                            <!-- Cột 2: TextBox và StackPanel -->
+                            <Grid HorizontalAlignment="Stretch" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="0.5*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox Text="{Binding User.Fullname}" 
+                 x:Name="tb_HoTen" 
+                 Margin="10,0,0,0" 
+                 FontSize="18" 
+                 VerticalAlignment="Center"
+                 IsReadOnly="True" 
+                 BorderThickness="0" 
+                 Background="Transparent" 
+                 HorizontalAlignment="Stretch" 
+                 Grid.Column="0">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsReadOnly" Value="True">
+                                                    <Setter Property="Opacity" Value="0.67" />
+                                                </Trigger>
+                                                <Trigger Property="IsReadOnly" Value="False">
+                                                    <Setter Property="Opacity" Value="1.0" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0,0,0" Grid.Column="1">
+                                    <Label Content="Giới tính:" 
+                   FontSize="18" 
+                   VerticalAlignment="Center" 
+                   FontWeight="SemiBold" />
+
+                                    <ComboBox SelectedItem="{Binding User.Gender, Mode=TwoWay}" 
+          ItemsSource="{Binding GenderOptions}" 
+          x:Name="cb_GioiTinh" 
+          IsEditable="False" 
+          Margin="10,0,0,0" 
+          IsHitTestVisible="False"
+          FontSize="18" 
+          VerticalAlignment="Center"
+          BorderThickness="0" 
+          Background="Transparent" 
+          Width="120">
+                                        <ComboBox.Style>
+                                            <Style TargetType="ComboBox">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsHitTestVisible" Value="True">
+                                                        <Setter Property="Opacity" Value="1.0" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsHitTestVisible" Value="False">
+                                                        <Setter Property="Opacity" Value="0.67" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
+                                    </ComboBox>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+
+
+                        <Grid HorizontalAlignment="Stretch" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Label -->
+                            <Label Content="Email:" 
+           FontSize="18" 
+           VerticalAlignment="Center" 
+           FontWeight="SemiBold" 
+           Padding="0" 
+           Grid.Column="0" />
+
+                            <!-- TextBox -->
+                            <TextBox Text="{Binding User.Email}" 
+             x:Name="tb_Email" 
+             Grid.Column="1" 
+             Margin="10,0,0,0" 
+             FontSize="18" 
+             VerticalContentAlignment="Center" 
+             IsReadOnly="True" 
+             BorderThickness="0" 
+             Background="Transparent" 
+             HorizontalAlignment="Stretch">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Style.Triggers>
+                                            <!-- Khi IsReadOnly = True -->
+                                            <Trigger Property="IsReadOnly" Value="True">
+                                                <Setter Property="Opacity" Value="0.67" />
+                                                <Setter Property="Background" Value="#EFEFEF" />
+                                            </Trigger>
+                                            <!-- Khi IsReadOnly = False -->
+                                            <Trigger Property="IsReadOnly" Value="False">
+                                                <Setter Property="Opacity" Value="1" />
+                                                <Setter Property="Background" Value="White" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Stretch" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="Địa chỉ:" 
+           FontSize="18" 
+           VerticalAlignment="Center" 
+           FontWeight="SemiBold" 
+           Padding="0" 
+           Grid.Column="0" />
+
+                            <!-- TextBox -->
+                            <TextBox Text="{Binding User.Address}" 
+             x:Name="tb_DiaChi" 
+             Grid.Column="1" 
+             Margin="10,0,0,0" 
+             FontSize="18" 
+             VerticalContentAlignment="Center" 
+             IsReadOnly="True" 
+             BorderThickness="0" 
+             Background="Transparent" 
+             HorizontalAlignment="Stretch">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Style.Triggers>
+                                            <!-- Khi IsReadOnly = True -->
+                                            <Trigger Property="IsReadOnly" Value="True">
+                                                <Setter Property="Opacity" Value="0.67" />
+                                                <Setter Property="Background" Value="#EFEFEF" />
+                                            </Trigger>
+                                            <!-- Khi IsReadOnly = False -->
+                                            <Trigger Property="IsReadOnly" Value="False">
+                                                <Setter Property="Opacity" Value="1" />
+                                                <Setter Property="Background" Value="White" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Stretch" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="Ngày sinh:" 
+FontSize="18" 
+VerticalAlignment="Center" 
+FontWeight="SemiBold" 
+Padding="0" 
+Grid.Column="0" />
+                            <DatePicker SelectedDate="{Binding User.Dob}" x:Name="dp_NgaySinh" IsEnabled="False" 
+  Margin="10,0,0,0" FontSize="18" Width="130"
+         HorizontalAlignment="Left"
+ BorderThickness="0" Background="Transparent" Grid.Column="1" />
+                        </Grid>
+
+                        <!-- Các trường còn lại trong Grid -->
+                        <Grid Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="31*" />
+                                <ColumnDefinition Width="129*"/>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="160*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Label cho CCCD -->
+                            <Label Content="CCCD:" 
+           Grid.Column="0" 
+           FontSize="18" 
+           VerticalAlignment="Center" 
+           FontWeight="SemiBold" 
+           Padding="0" Grid.ColumnSpan="2"/>
+
+                            <!-- TextBox cho CCCD -->
+                            <TextBox Text="{Binding User.Identity_Card}" 
+             x:Name="tb_Cccd" 
+             Grid.Row="0" 
+             Grid.Column="1" 
+             Margin="-20,0,0,0" 
+             FontSize="18" 
+             VerticalContentAlignment="Center" 
+             IsReadOnly="True" 
+             BorderThickness="0" 
+             Background="Transparent">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                                                <Setter Property="Opacity" Value="0.65"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+
+                            <!-- Label cho Điện thoại -->
+                            <Label Content="Điện thoại:" 
+           Grid.Column="3" 
+           FontSize="18" 
+           VerticalAlignment="Center" 
+           FontWeight="SemiBold" 
+           Padding="0"/>
+
+                            <!-- TextBox cho Điện thoại -->
+                            <TextBox Text="{Binding User.Phone}" 
+             x:Name="tb_Dienthoai" 
+             Grid.Row="0" 
+             Grid.Column="3" 
+             Margin="90,0,0,0" 
+             FontSize="18" 
+             VerticalContentAlignment="Center" 
+             IsReadOnly="True" 
+             BorderThickness="0" 
+             Background="Transparent">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                                                <Setter Property="Opacity" Value="0.65"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+
+                    </StackPanel>
+
+                    <!-- Các nút chức năng -->
+                    <Grid Margin="20,30,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Width="170" x:Name="btn_Thaydoi" BorderBrush="DarkGreen" Grid.Column="0" BorderThickness="1"
+                                Click="btn_ThayDoi_Click"
+        VerticalAlignment="Bottom" Margin="10 0 0 0" Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="AccountEdit" Margin="0,0,10,0" />
+                                    <TextBlock Text="Thay đổi thông tin" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                        <Button Width="170" x:Name="btn_Huy" BorderBrush="DarkGreen" Grid.Column="1" BorderThickness="1"
+                        Click="btn_Huy_Click"
+                                Opacity="0"
+                                IsEnabled="False"
+VerticalAlignment="Bottom" Margin="10 0 0 0" Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="Close" Margin="0,0,10,0" />
+                                    <TextBlock Text="Huỷ bỏ" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                        <Button x:Name="btn_ThayDoiMK" Click="btn_ThayDoiMK_Click" Width="190" BorderBrush="DarkGreen" Grid.Column="2" BorderThickness="1"
+        VerticalAlignment="Bottom" Margin="10 0 0 0" Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <!-- Icon -->
+                                    <materialDesign:PackIcon Kind="Lock" Margin="0,0,10,0" />
+                                    <!-- Text -->
+                                    <TextBlock Text="Thay đổi mật khẩu" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                        <Button Width="120" x:Name="btn_Luu" Click="btn_Luu_Click" Visibility="Collapsed"  BorderBrush="DarkGreen" Grid.Column="0" BorderThickness="1"
+VerticalAlignment="Bottom" Margin="10 0 0 0" Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <!-- Icon -->
+                                    <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0" />
+                                    <!-- Text -->
+                                    <TextBlock Text="Lưu" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Phần biểu đồ -->
+            <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="20" Margin="10">
+                <StackPanel>
+                    <!-- Tiêu đề tổng quát -->
+                    <TextBlock Text="THỐNG KÊ" FontSize="50" FontWeight="Bold" Margin="0 -10 0 0"
+                   Foreground="#333" TextAlignment="Center" />
+
+                    <StackPanel Orientation="Horizontal" Margin="20 0 20 0">
+
+                        <!-- Biểu đồ tròn -->
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0">
+                            <lvc:PieChart Height="220" Width="410" Margin="0 0 0 0" LegendLocation="Right">
+                                <lvc:PieChart.Series>
+                                    <lvc:PieSeries Title="Tiết kiệm cá nhân" 
+                                                   x:Name="PieSeriesPersonalSavings"
+               Values="{Binding PersonalSavings}" Fill="#a2c243"
+               DataLabels="True"/>
+                                    <lvc:PieSeries x:Name="PieSeriesGroupSavings" Title="Tiết kiệm nhóm" Values="{Binding GroupSavings}" DataLabels="True" Fill="#1a3820"/>
+                                </lvc:PieChart.Series>
+                            </lvc:PieChart>
+
+                            <TextBlock Text="Thống kê tổng số tiền (VNĐ)" TextAlignment="Center" FontSize="18" FontWeight="Bold" 
+                           Foreground="#333" Margin="0 10 0 0"/>
+                        </StackPanel>
+
+                        <!-- Biểu đồ cột -->
+                        <StackPanel HorizontalAlignment="Center" Margin="150 0 0 0">
+                            <lvc:CartesianChart Height="220" LegendLocation="Bottom">
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Sổ cá nhân" Values="{Binding PersonalAccountCount}" Fill="#a2c243" />
+                                    <lvc:ColumnSeries Title="Sổ nhóm" Values="{Binding GroupAccountCount}" Fill="#1a3820" />
+                                </lvc:CartesianChart.Series>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Loại sổ tiết kiệm" Labels="{Binding Labels}" />
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Số lượng sổ" x:Name="soluong" MinValue="0">
+                                       
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                            <TextBlock Text="Thống kê số lượng sổ tiết kiệm" TextAlignment="Center" FontSize="18" FontWeight="Bold" 
+                           Foreground="#333" Margin="0 10 0 0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+
+</UserControl>

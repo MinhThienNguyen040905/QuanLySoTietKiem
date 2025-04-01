@@ -1,0 +1,42 @@
+﻿<Window x:Class="PhanMemQuanLySTK.ThongBaoXoa"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhanMemQuanLySTK"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Thongbao" Height="Auto" Width="Auto"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowState="Maximized"
+        ResizeMode="NoResize">
+
+    <Grid Background="#80000000">
+        <Border CornerRadius="10" Background="White" MaxWidth="450" Height="120">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="2" Color="Black" BlurRadius="15" Opacity="0.5" Direction="315" />
+            </Border.Effect>
+
+            <StackPanel Background="Transparent">
+                <Border Height="30" Background="DarkGreen" VerticalAlignment="Top" CornerRadius="10 10 0 0">
+                    <Label Content="Xác nhận" FontWeight="Bold" Margin="0 -2 0 0" HorizontalContentAlignment="Center" FontSize="18" Foreground="White"/>
+                </Border>
+                <Label FontSize="16" HorizontalContentAlignment="Center" Margin="0 10 0 15">
+                    <Label.Content>
+                        <TextBlock>
+                     <Run Text="{Binding NoiDung}"/>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button BorderBrush="Black" x:Name="Khongdongy" Content="Không" Margin="0 0 20 0" Height="30" Background="White" materialDesign:ElevationAssist.Elevation="Dp0" Click="Khongdongy_Click" />
+                    <Button x:Name="Dongy" Content="Có" Margin="20 0 0 0" Height="30" Background="White" materialDesign:ElevationAssist.Elevation="Dp0" BorderThickness="1" BorderBrush="Black" Click="Dongy_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+
+</Window>

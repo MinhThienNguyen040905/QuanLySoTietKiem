@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="PhanMemQuanLySTK.GiaoDienDangKi"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PhanMemQuanLySTK"
+      xmlns:gd_dk="clr-namespace:PhanMemQuanLySTK.ViewModels"
+      mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="16"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      Width="Auto" Height="Auto"
+             Background="Transparent"
+             x:Name="DangKi"
+      >
+    <UserControl.DataContext>
+        <gd_dk:DangKyViewModel />
+    </UserControl.DataContext>
+
+    <Grid>
+        <Border CornerRadius="20" Height="420" Background="White" Opacity="0.9" Grid.Row="0">
+            <Grid Background="Transparent">
+                <StackPanel>
+                    <Grid Height="80">
+                        <Label Content="ĐĂNG KÝ" FontWeight="Bold" FontSize="50" HorizontalAlignment="Center" Margin="0 10 0 0"/>
+                    </Grid>
+                    <Grid Height="145" Width="510">
+                        <StackPanel>
+                            <!-- Các ô nhập liệu -->
+                            <StackPanel Orientation="Horizontal" Margin="10 0 10 0">
+                                <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="30" Margin="10 0 0 0"/>
+                                <TextBox Margin="10 0 10 0"
+                             FlowDirection="LeftToRight"
+                             materialDesign:HintAssist.Hint="Tên đăng nhập"
+                             x:Name="pwb_TenDangNhap"
+                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="42" Width="430" KeyDown="pwb_TenDangNhap_KeyDown"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="10 5 10 0">
+                                <materialDesign:PackIcon Kind="Key" HorizontalAlignment="Center" 
+                                             VerticalAlignment="Center" Height="30" Width="30" Margin="10 0 0 0"/>
+                                <PasswordBox Margin="10 0 10 0" x:Name="pwb_MatKhau"
+                                 materialDesign:HintAssist.Hint="Mật khẩu"
+                                 GotFocus="PasswordBox_GotFocus"
+                                 PasswordChanged="PasswordBox_PasswordChanged"
+                                 materialDesign:TextFieldAssist.HasClearButton="True"
+                                 IsEnabled="{Binding ElementName=RevealPasswordFloatingEnabled, Path=IsChecked}"
+                                 Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
+                                 Height="42" Width="430"
+                                 FlowDirection="LeftToRight" KeyDown="pwb_MatKhau_KeyDown"/>
+                            </StackPanel>
+                            <PasswordBox Margin="50 5 10 0"
+                             PasswordChanged="PasswordBox_ConfirmPasswordChanged"
+                             materialDesign:HintAssist.Hint="Nhập lại mật khẩu" x:Name="pwb_MatKhau_Nhaplai"
+                             materialDesign:TextFieldAssist.HasClearButton="True"
+                             FlowDirection="LeftToRight"
+                             IsEnabled="{Binding ElementName=RevealPasswordFloatingEnabled, Path=IsChecked}"
+                             Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
+                             Height="42" Width="430" KeyDown="pwb_MatKhau_Nhaplai_KeyDown"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Height="Auto">
+                        <!-- Các nút -->
+                        <StackPanel>
+                            <Label x:Name="thongbao" Visibility="Collapsed" Content="Mật khẩu nhập lại chưa khớp với mật khẩu ban đầu" Foreground="Red" HorizontalAlignment="Center" FontSize="14" Margin="0 -5 0 0"/>
+                            <Label x:Name="thongbao_dutt" Visibility="Collapsed" Content="Vui lòng nhập đầy đủ thông tin" Foreground="Red" HorizontalAlignment="Center" FontSize="14" Margin="0 -5 0 0"/>
+                            <Grid Margin="10 0 10 10">
+                                <Button HorizontalAlignment="Left" x:Name="btn_QuayLai"
+                            Width="115"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignFlatLightButton}" Click="btn_QuayLai_Click">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 10 0">
+                                        <materialDesign:PackIcon Kind="ChevronLeft" VerticalAlignment="Center" Foreground="DarkGreen"/>
+                                        <TextBlock Text="Quay lại" VerticalAlignment="Center" Margin="0,0,0,0"  FontSize="14" Foreground="DarkGreen"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button HorizontalAlignment="Right" x:Name="btn_TiepTuc"
+                            Width="115"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignFlatLightButton}" Click="btn_TiepTuc_Click">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0 0 0">
+                                        <TextBlock Text="Tiếp tục" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="14" Foreground="DarkGreen"/>
+                                        <materialDesign:PackIcon Kind="ChevronRight" VerticalAlignment="Center" Foreground="DarkGreen"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+
+                        <Label Grid.Row="1" Width="485" Height="Auto" Margin="-5 35 -5 0" FontSize="13">
+                            <Label.Content>
+                                <TextBlock Foreground="Black" TextWrapping="Wrap">
+ <Run Text="Lưu ý:" FontWeight="Medium"/> <LineBreak/>
+ <Run Text="  1. Tên đăng nhập chỉ được chứa chữ cái thường (a - z), chữ cái in hoa (A - Z) và chữ số (0 - 9). " FontWeight="Regular"/> <LineBreak/>
+ <Run Text="  2. Mật khẩu phải là chuỗi từ 8 đến 20 ký tự, không chứa khoảng trống (dấu cách) và không bao gồm các ký tự tiếng Việt, trong đó phải có chứa ít nhất:"/> <LineBreak/>
+ <Run Text="   - 01 chữ cái viết thường (a - z);"/> <LineBreak/>
+ <Run Text="   - 01 chữ cái viết hoa (A - Z);"/> <LineBreak/>
+ <Run Text="   - 01 ký tự số (0 - 9);"/> <LineBreak/>
+ <Run Text="   - 01 ký tự đặc biệt (!,@,#,$,%,&amp;,*,...)."/>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

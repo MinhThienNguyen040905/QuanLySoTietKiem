@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="GiaoDien1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienChinh.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienChuyenTien.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienDangKi.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienDangKiThongTin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienDatLaiMatKhau.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienNapTien.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienNapTienNhom.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienQuenMatKhau.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienRutTien.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienRutTienNhom.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienTaoSoNhom.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienTaoSoTietKiemCaNhan.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienThayDoiMatKhau.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienThemThanhVien.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GiaoDienXacThucEmail_NhapOTP.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ThayDoiTT_XacThucEmail.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ThongBaoLoi.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ThongBaoThanhCong.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ThongBaoXoa.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="GiaoDien1.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienChinh.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienChuyenTien.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienDangKi.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienDangKiThongTin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienDatLaiMatKhau.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienNapTien.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienNapTienNhom.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienQuenMatKhau.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienRutTien.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienRutTienNhom.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienTaoSoNhom.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienTaoSoTietKiemCaNhan.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienThayDoiMatKhau.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienThemThanhVien.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienXacThucEmail_NhapOTP.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienDangNhap.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GiaoDienQuenMatKhau_NhapOTP.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ThayDoiTT_XacThucEmail.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ThongBaoLoi.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ThongBaoThanhCong.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ThongBaoXoa.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>
